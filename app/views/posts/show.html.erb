@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Title:</b>
+  <%= @post.title %>
+</p>
+
+<p>
+  <b>Body:</b>
+  <%= @post.body %>
+</p>
+
+<h2>Comments</h2>
+<ol>
+<%- @post.comments.each do |comment| -%>
+  <li>
+    <%= comment.text %>
+  </li>
+<%- end -%>
+</ol>
+
+<h3>New Comment</h3>
+<%- comment = Comment.new{|c| c.post = @post }%>
+<%= form_for comment do |f| %>
+  <%= f.text_area :text %>
+  <%= f.hidden_field :post_id %>
+  <%= f.submit "Comment" %>
+<%- end -%>
+<%= link_to 'Edit', edit_post_path(@post) %> |
+<%= link_to 'Back', posts_path %>
